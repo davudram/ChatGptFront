@@ -1,18 +1,37 @@
 import { useState } from "react";
 import './ChatPage.css';
+import { Configuration, OpenAIApi } from "openai";
 
 function ChatPage() {
     const [message, setMessage] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const [chatTickets, setChatTickets] = useState([]);
+    const configuration = new Configuration({
+        apiKey: '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',
+    });
+    const openai = new OpenAIApi(configuration);
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
         if (message.trim() !== '') {
+            const requestOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${configuration.apiKey}`,
+                },
+                body: JSON.stringify({ prompt: message }),
+                method: 'POST',
+            };
+            const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', requestOptions);
+            const data = await response.json();
+            const answer = data.choices[0].text;
             setChatHistory([...chatHistory, { sender: 'User', message }]);
+            setChatHistory([...chatHistory, { sender: 'ChatGPT', message: answer }]);
             setMessage('');
         }
     };
+
+
 
     const handleInputChange = (e) => {
         setMessage(e.target.value);
