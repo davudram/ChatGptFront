@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Authorization from './Authorization'
 import Login from './Login';
 import Signup from './Signup';
+import ChatPage from './ChatPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
         <Route path='/auth' element={<Authorization />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/chat' element={<ChatPage />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

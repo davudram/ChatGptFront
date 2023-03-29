@@ -13,7 +13,7 @@ function Login() {
                     <input type="text" className="input" placeholder="Full Name" />
                     <input type="password" className="input" placeholder="Password" />
                 </div>
-                <button>Sign up</button>
+                <button onClick={() => {navigate('/chat')}}>Log in</button>
             </form>
             <div className="form-section">
                 <p>Don't have an account? <a href='' onClick={() => {navigate('/signup')}}>Sign up</a></p>
