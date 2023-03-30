@@ -7,7 +7,10 @@ import Authorization from './Authorization'
 import Login from './Login';
 import Signup from './Signup';
 import ChatPage from './ChatPage';
+import AuthAdmin from './AuthAdmin';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminPanel from './AdminPanel';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +22,8 @@ root.render(
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/chat' element={<ChatPage />}></Route>
+        <Route path='/authadm' element={<AuthAdmin />}></Route>
+        <Route path='/panel' element={<AdminPanel />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-
   const navigate = useNavigate();
-  const [subscription, setSubscription] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
 
   useEffect(() => {
-    const getSubscriptionCount = async () => {
+    const getSubscriptions = async () => {
       try {
         const response = await axios.get('https://localhost:7019/api/Subscriptions/ListSubscriptions', {
           headers: {
@@ -17,14 +16,32 @@ function App() {
             'Content-Type': 'application/json'
           },
         });
-        setSubscription(response.data);
+        setSubscriptions(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    getSubscriptionCount();
+    getSubscriptions();
   }, []);
+
+  const handleClickShop = (subscription) => {
+    const dataShop = {
+      subscriptionId: subscription.id,
+      subscriptionName: subscription.name,
+      subscriptionImage: subscription.image,
+      subscriptionPrice: subscription.price
+    }
+    axios({
+      method: 'post',
+      url: 'https://localhost:7019/api/Shop/AddShop',
+      data: dataShop,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => { alert("Successful") });
+  }
 
   return (
     <div className="App">
@@ -55,12 +72,12 @@ function App() {
         </div>
         <div className="vip-container">
           <h1>Subscriptions</h1>
-          {subscription.length > 0 && subscription.map(subscriptions => (
-            <div className="cards-sub" key={subscriptions.id}>
-              <img src={`${subscriptions.image}`}></img>
-              <p>Name: {subscriptions.name}</p>
-              <p>Price: {subscriptions.price}$</p>
-              <button>Buy</button>
+          {subscriptions.length > 0 && subscriptions.map((subscription) => (
+            <div className="cards-sub" key={subscription.id}>
+              <img src={`${subscription.image}`}></img>
+              <p>Name: {subscription.name}</p>
+              <p>Price: {subscription.price}$</p>
+              <button onClick={() => { handleClickShop(subscription) }}>Buy</button>
             </div>
           ))}
         </div>

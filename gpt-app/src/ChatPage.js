@@ -25,11 +25,16 @@ function ChatPage() {
             const response = await fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', requestOptions);
             const data = await response.json();
             const answer = data.choices[0].text;
-            setChatHistory([...chatHistory, { sender: 'User', message }]);
-            setChatHistory([...chatHistory, { sender: 'ChatGPT', message: answer }]);
+
+            // create a new object that includes both the user's message and the GPT-3's response
+            const newMessage = { sender: 'User', message };
+            const newAnswer = { sender: 'ChatGPT', message: answer };
+
+            setChatHistory([...chatHistory, newMessage, newAnswer]);
             setMessage('');
         }
     };
+
 
     function handleUploadPhoto(event) {
         const file = event.target.files[0];
@@ -54,6 +59,7 @@ function ChatPage() {
                     .then(data => {
                         const answer = data.choices[0].text;
                         setChatHistory([...chatHistory, { sender: 'User', message: file.name }]);
+                        setChatHistory([...chatHistory, { sender: 'User', message: detectedText }]);
                         setChatHistory([...chatHistory, { sender: 'ChatGPT', message: answer }]);
                     })
                     .catch(error => console.error(error));

@@ -1,0 +1,210 @@
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.subscriptions-table {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.subscriptions-table h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+}
+
+.table thead tr {
+  background-color: #f2f2f2;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.table th {
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f8f8;
+}
+
+.table td img {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.del-btn {
+  padding: 8px 16px;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.del-btn:hover {
+  background-color: #ff7875;
+}
+
+.table-users {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.table-users h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.table-users th,
+.table-users td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.table-users th {
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.table-users tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.table-users tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table-users tbody tr:hover {
+  background-color: #f8f8f8;
+}
+
+.edit-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.create-subscriptions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.create-subscriptions input[type="text"] {
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-subscriptions button {
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.create-subscriptions button:hover {
+  background-color: #555;
+}
+
+.table-shops {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-top: 6%;
+}
+
+.table-shops h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.table-shops th,
+.table-shops td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.table-shops th {
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.table-shops tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.table-shops tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table-shops tbody tr:hover {
+  background-color: #f8f8f8;
+}

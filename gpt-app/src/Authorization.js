@@ -12,6 +12,7 @@ function Authorization() {
                 <p>Log in with your OpenAI account to continue</p>
                 <button className='log-in' onClick={() => { navigate('/login') }}>Log in</button>
                 <button className='sign-in' onClick={() => { navigate('/signup') }}>Sign up</button>
+                <p style={{fontSize: '20px'}} onClick={() => {navigate('/authadm')}}>admin</p>
             </div>
         </div>
     );
