@@ -31,7 +31,66 @@ function ChatPage() {
         }
     };
 
+    function handleUploadPhoto(event) {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        fetch('https://localhost:7019/api/Rekognition/UploadFiles', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(detectedText => {
+                const requestOptions = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${configuration.apiKey}`,
+                    },
+                    body: JSON.stringify({ prompt: detectedText }),
+                    method: 'POST',
+                };
+                fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+                        const answer = data.choices[0].text;
+                        setChatHistory([...chatHistory, { sender: 'User', message: file.name }]);
+                        setChatHistory([...chatHistory, { sender: 'ChatGPT', message: answer }]);
+                    })
+                    .catch(error => console.error(error));
+            })
+            .catch(error => console.error(error));
+    }
 
+    function handleRecordVoice() {
+        const recorder = new MediaRecorder({ audio: true });
+        const chunks = [];
+        recorder.addEventListener("dataavailable", (event) => {
+            chunks.push(event.data);
+        });
+        recorder.start();
+        setTimeout(() => {
+            recorder.stop();
+            const blob = new Blob(chunks, { type: "audio/mp3" });
+            const formData = new FormData();
+            formData.append("file", blob);
+
+            fetch("/api/Transcribe", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', data.transcriptionText)
+                        .then(response => response.json())
+                        .then(data => {
+                            const answer = data.choices[0].text;
+                            setChatHistory([...chatHistory, { sender: 'User', message: data.transcriptionText }]);
+                            setChatHistory([...chatHistory, { sender: 'ChatGPT', message: answer }]);
+                        })
+                        .catch(error => console.error(error));
+                });
+        }, 10000);
+    }
 
     const handleInputChange = (e) => {
         setMessage(e.target.value);
@@ -86,6 +145,9 @@ function ChatPage() {
                 <form className="chat-form" onSubmit={handleSendMessage}>
                     <input type="text" value={message} onChange={handleInputChange} className="chat-input" placeholder="Type a message" />
                     <button type="submit" className="chat-button">Send</button>
+                    <button type="button" className="create-chat-button" onClick={handleRecordVoice}>Record Voice</button>
+                    <label htmlFor="upload-photo" className="create-chat-button">Upload Photo</label>
+                    <input type="file" id="upload-photo" className="hidden" onChange={handleUploadPhoto} accept="image/*" />
                 </form>
             </div>
         </div>

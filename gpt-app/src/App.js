@@ -1,9 +1,30 @@
 import './App.css';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
 
   const navigate = useNavigate();
+  const [subscription, setSubscription] = useState([]);
+
+  useEffect(() => {
+    const getSubscriptionCount = async () => {
+      try {
+        const response = await axios.get('https://localhost:7019/api/Subscriptions/ListSubscriptions', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        });
+        setSubscription(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getSubscriptionCount();
+  }, []);
 
   return (
     <div className="App">
@@ -34,30 +55,14 @@ function App() {
         </div>
         <div className="vip-container">
           <h1>Subscriptions</h1>
-          <div className="cards-sub">
-            <img src="https://play-lh.googleusercontent.com/ljeETV3v5942lxfJQV0JeGV0laxQpS9S9EvDKb_97GzT_5AsXAitzvLFc8XguA0RXx4"></img>
-            <p>ChatGPT 2</p>
-            <p>Free sub</p>
-            <button>Already used</button>
-          </div>
-          <div className="cards-sub">
-            <img src="https://static.vecteezy.com/system/resources/previews/018/764/128/original/chatgpt-logo-open-ai-icon-with-chatbot-artificial-intelligence-openai-chatbot-icon-chatgpt-openai-icon-artificial-intelligence-smart-ai-virtual-smart-assistant-bot-free-vector.jpg"></img>
-            <p>ChatGPT 3</p>
-            <p>Price: 5$</p>
-            <button>Buy</button>
-          </div>
-          <div className="cards-sub">
-            <img src="https://xnweb.gr/storage/2022/12/GPT-2-Output-Detector-Demo-400x400.webp"></img>
-            <p>ChatGPT 4</p>
-            <p>Price: 25$</p>
-            <button>Buy</button>
-          </div>
-          <div className="cards-sub">
-            <img src="https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/3d/97/b2/3d97b239-a473-6bf0-d752-94d4439ef5ab/AppIcon-0-1x_U007emarketing-0-10-0-85-220.png/512x512bb.jpg"></img>
-            <p>ChatGPT 5</p>
-            <p>Price: 50$</p>
-            <button>Buy</button>
-          </div>
+          {subscription.length > 0 && subscription.map(subscriptions => (
+            <div className="cards-sub" key={subscriptions.id}>
+              <img src={`${subscriptions.image}`}></img>
+              <p>Name: {subscriptions.name}</p>
+              <p>Price: {subscriptions.price}$</p>
+              <button>Buy</button>
+            </div>
+          ))}
         </div>
         <footer className="chatgpt-footer">
           <div className="footer-container">
